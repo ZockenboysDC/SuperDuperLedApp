@@ -20,6 +20,17 @@ class MyAppapp extends StatefulWidget {
 }
 
 List<Effect> effects = [
+    Oldvisualizer(
+      boolsettings: null,
+      endpoint: 'Oldvisualizer',
+      intsettings: null,
+      // intsettings: [
+      //   IntSetting(250, 20, 168, 'Brightness', 'Visualizer'),
+      //   IntSetting(8, 1, 4, 'High', 'Visualizer'),
+      //   IntSetting(30, 1, 5, 'Decay', 'Visualizer'),
+      //   IntSetting(10, 1, 3, 'Wheel_speed', 'Visualizer'),
+      // ],
+      name: 'Visualizer'),
   Visualizer(
       boolsettings: null,
       endpoint: 'Visualizer',

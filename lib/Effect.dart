@@ -24,9 +24,13 @@ class Effect {
 
     print(body2);
 
+    try {
     http
         .post(url, body: body2, headers: headers)
         .then((http.Response response) {});
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   void setSettings() {
@@ -62,7 +66,7 @@ class Effect {
     };
 
     http.post(url, body: body, headers: headers).then((http.Response response) {
-      return response.body;
+      return response.body.toString();
     });
   }
 }
@@ -108,6 +112,19 @@ class OFF extends Effect {
 
 class Visualizer extends Effect {
   Visualizer(
+      {String name,
+      String endpoint,
+      List<IntSetting> intsettings,
+      List<BoolSetting> boolsettings})
+      : super(
+            name: name,
+            endpoint: endpoint,
+            intsettings: intsettings,
+            boolsettings: boolsettings);
+}
+
+class Oldvisualizer extends Effect {
+  Oldvisualizer(
       {String name,
       String endpoint,
       List<IntSetting> intsettings,
