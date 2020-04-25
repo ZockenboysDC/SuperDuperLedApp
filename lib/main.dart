@@ -1,74 +1,78 @@
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:super_duper_led_app/Global.dart';
-import 'package:super_duper_led_app/Setting.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import './AppBar.dart';
-import './BuildWidget.dart';
-import './Effect.dart';
+import './Drawer.dart';
 
 void main() {
-  runApp(MaterialApp(
-    home: MyAppapp(),
-    debugShowCheckedModeBanner: false,
-  ));
+  runApp(MyApp());
 }
 
-class MyAppapp extends StatefulWidget {
+ThemeData _buildTheme(Brightness brightness) {
+  return brightness == Brightness.dark
+      ? ThemeData.dark().copyWith(
+          textTheme: ThemeData.dark().textTheme.apply(
+                bodyColor: Colors.white,
+                displayColor: Colors.white,
+                fontFamily: 'Basier',
+              ),
+          buttonTheme: ThemeData.dark().buttonTheme.copyWith(
+                buttonColor: Colors.blueGrey,
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(15.0),
+                ),
+              ),
+          backgroundColor: Colors.blueGrey,
+          primaryColor: Colors.black,
+          cardColor: Colors.blueGrey[810],
+          accentColor: Colors.green,
+          secondaryHeaderColor: Colors.blueGrey[900],
+          scaffoldBackgroundColor: Colors.blueGrey[900])
+      : ThemeData.light().copyWith(
+          textTheme: ThemeData.light().textTheme.apply(
+                bodyColor: Colors.black,
+                displayColor: Colors.black,
+                fontFamily: 'Basier',
+              ),
+          buttonTheme: ThemeData.light().buttonTheme.copyWith(
+                buttonColor: Colors.grey[500],
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(15.0),
+                ),
+              ),
+          backgroundColor: Colors.white,
+          primaryColor: Colors.grey[700],
+          cardColor: Colors.grey[300],
+          accentColor: Colors.green,
+          secondaryHeaderColor: Colors.grey[500],
+          scaffoldBackgroundColor: Colors.white);
+}
+
+class MyApp extends StatelessWidget {
   @override
-  MyApp createState() {
-    return MyApp();
+  Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    return FlutterEasyLoading(
+      child: new DynamicTheme(
+        defaultBrightness: Brightness.dark,
+        data: (brightness) => _buildTheme(brightness),
+        themedWidgetBuilder: (context, theme) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: theme,
+          home: HomePage(),
+        ),
+      ),
+    );
   }
 }
 
-List<Effect> effects = [
-    Oldvisualizer(
-      boolsettings: null,
-      endpoint: 'Oldvisualizer',
-      intsettings: null,
-      name: 'Visualizer'),
-  Visualizer(
-      boolsettings: null,
-      endpoint: 'Visualizer',
-      intsettings: [
-        IntSetting(250, 20, 168, 'Brightness', 'Visualizer'),
-        IntSetting(8, 1, 4, 'High', 'Visualizer'),
-        IntSetting(30, 1, 5, 'Decay', 'Visualizer'),
-        IntSetting(10, 1, 3, 'Wheel_speed', 'Visualizer'),
-      ],
-      name: 'Visualizer'),
-  Rainbow(
-      boolsettings: null,
-      endpoint: 'Rainbow',
-      intsettings: [
-        IntSetting(40, 1, 15, 'hue', 'Rainbow'),
-        IntSetting(10, -10, 1, 'rate', 'Rainbow')
-      ],
-      name: 'Rainbow'),
-  StaticPalet(
-      boolsettings: null,
-      endpoint: 'StaticPalet',
-      intsettings: null,
-      name: 'StaticPalet'),
-  OFF(boolsettings: null, endpoint: 'OFF', intsettings: null, name: 'OFF'),
-];
-
-class MyApp extends State<MyAppapp> {
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[900],
-      appBar: AppBarTemp().build(context),
-      body: ListView(
-        children: effects.map((ef) => EffectWidget(effect: ef)).toList(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return Choose();
-          }));
-        },
-        child: Text('click'),
-        backgroundColor: Colors.black,
-      ),
+      appBar: AppBarMain().build(context),
+      drawer: AspectRatio(aspectRatio: 0.5, child: left(context)),
     );
   }
 }
