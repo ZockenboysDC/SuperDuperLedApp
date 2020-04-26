@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'dart:io' show RawDatagramSocket, InternetAddress, Datagram;
-
 import 'package:super_duper_led_app/ESP_Config.dart';
 
 class ESP {
@@ -31,6 +30,9 @@ class esp_searchState extends State<esp_search> {
   }
 
   void sendMessage() {
+    setState(() {
+      esp.clear();
+    });
     RawDatagramSocket.bind(InternetAddress.anyIPv4, PORT)
         .then((RawDatagramSocket datagramSocket) {
       datagramSocket.broadcastEnabled = true;

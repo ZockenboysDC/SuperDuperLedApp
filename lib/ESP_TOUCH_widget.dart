@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:smartconfig/smartconfig.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
-import 'package:super_duper_led_app/ESP_Config.dart';
 import 'package:super_duper_led_app/ESP_Search.dart';
 
 class esp_touch_widget extends StatefulWidget {

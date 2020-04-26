@@ -27,10 +27,10 @@ Widget left(BuildContext context) {
         ),
         Divider(),
 
-        Padding(
-          padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
-          child: Card(child: elements(context, "Hello 2")),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
+        //   child: Card(child: elements(context, "Hello 2")),
+        // ),
         Divider(),
 
         // TODO: ADD SETTINGS FOR APP
