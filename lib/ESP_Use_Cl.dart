@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:super_duper_led_app/Classes/ESP.dart';
 import 'package:super_duper_led_app/ESP_Use.dart';
+import 'package:super_duper_led_app/Update.dart';
 
 class ESP_Use_Cl extends StatefulWidget {
   final ESP esp;
@@ -26,6 +27,11 @@ class _ESP_use_Cl extends State<ESP_Use_Cl> {
             fontWeight: FontWeight.w800,
           ),
         ),
+        actions: <Widget>[
+          IconButton(
+              icon: new Icon(Icons.system_update),
+              onPressed: () => {checkifUpdate(esp.ip)})
+        ],
       ),
       body: ListView(
         children:
