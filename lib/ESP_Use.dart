@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:super_duper_led_app/Setting.dart';
-import './Effect.dart';
+import 'Classes/ESP.dart';
+import 'Classes/IntSetting.dart';
+import 'Classes/Effect.dart';
 
-class EffectWidget extends StatefulWidget {
+class ESP_use extends StatefulWidget {
   final Effect effect;
-  EffectWidget({this.effect});
+  final String ip;
+  ESP_use({this.effect, this.ip});
 
   @override
-  _EffectWidget createState() => _EffectWidget(effect: effect);
+  _ESP_use createState() => _ESP_use(effect: effect, ip: ip);
 }
 
-class _EffectWidget extends State<EffectWidget> {
+class _ESP_use extends State<ESP_use> {
   final Effect effect;
+  final String ip;
 
-  _EffectWidget({@required this.effect});
+  _ESP_use({@required this.effect, this.ip});
 
   Widget getSet(Effect effect) {
     List<IntSetting> int3 = effect.intsettings;
@@ -49,7 +52,7 @@ class _EffectWidget extends State<EffectWidget> {
                             setState(() {
                               item.current = item.standart;
                             });
-                            item.setSetting();
+                            effect.setSettings(ip, item);
                           },
                           child: Icon(
                             Icons.settings_backup_restore,
@@ -73,7 +76,7 @@ class _EffectWidget extends State<EffectWidget> {
                             setState(() {
                               if (item.current > item.min) {
                                 item.current--;
-                                item.setSetting();
+                                effect.setSettings(ip, item);
                               }
                             });
                           },
@@ -86,12 +89,12 @@ class _EffectWidget extends State<EffectWidget> {
                           value: item.current.toDouble(),
                           onChangeEnd: (e) {
                             item.current = e.toInt();
-                            item.setSetting();
+                            effect.setSettings(ip, item);
                           },
                           label: item.current.toString(),
                           onChanged: (e) {
                             setState(() {
-                             item.current = e.toInt(); 
+                              item.current = e.toInt();
                             });
                           },
                         ),
@@ -108,7 +111,7 @@ class _EffectWidget extends State<EffectWidget> {
                             setState(() {
                               if (item.current < item.max) {
                                 item.current++;
-                                item.setSetting();
+                                effect.setSettings(ip, item);
                               }
                             });
                           },
@@ -144,7 +147,7 @@ class _EffectWidget extends State<EffectWidget> {
                       size: 50,
                     ),
                     onPressed: () {
-                      effect.turnOn();
+                      effect.turnOn(ip);
                     },
                   ),
                 ),
